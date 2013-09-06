@@ -28,7 +28,6 @@ Handsontable.TableView = function (instance) {
 
   instance.rootElement.on('mousedown.handsontable', function (event) {
     if (!that.isTextSelectionAllowed(event.target)) {
-      event.preventDefault(); //disable text selection in Chrome
       clearTextSelection();
     }
   });
@@ -322,6 +321,13 @@ Handsontable.TableView = function (instance) {
       }
     }
   });
+
+  var configureTextSelection = function () {
+    instance.rootElement.toggleClass('htDisableTextSelection', !that.settings.fragmentSelection);
+  };
+
+  instance.addHook('afterUpdateSettings', configureTextSelection);
+  configureTextSelection();
 };
 
 Handsontable.TableView.prototype.isTextSelectionAllowed = function (el) {
