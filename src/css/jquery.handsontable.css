@@ -14,7 +14,9 @@
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.3em;
   font-size: 13px;
+}
 
+.handsontable.htDisableTextSelection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
