@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  * http://handsontable.com/
  *
- * Date: Mon Mar 31 2014 14:19:47 GMT+0200 (CEST)
+ * Date: Thu Sep 11 2014 17:14:49 GMT-0400 (EDT)
  */
 /*jslint white: true, browser: true, plusplus: true, indent: 4, maxerr: 50 */
 
@@ -6263,22 +6263,8 @@ Handsontable.cellLookup = {
  * In future we may implement a better driver when better APIs are available
  * @constructor
  */
-var CopyPaste = (function () {
-  var instance;
-  return {
-    getInstance: function () {
-      if (!instance) {
-        instance = new CopyPasteClass();
-      } else if (instance.hasBeenDestroyed()){
-        instance.init();
-      }
 
-      instance.refCounter++;
-
-      return instance;
-    }
-  };
-})();
+(function(global) {
 
 function CopyPasteClass() {
   this.refCounter = 0;
@@ -6501,6 +6487,26 @@ CopyPasteClass.prototype._unbindEvent = (function () {
     };
   }
 })();
+
+global.CopyPaste = (function () {
+  var instance;
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = new CopyPasteClass();
+      } else if (instance.hasBeenDestroyed()){
+        instance.init();
+      }
+
+      instance.refCounter++;
+
+      return instance;
+    }
+  };
+})();
+
+})(window);
+
 // json-patch-duplex.js 0.3.6
 // (c) 2013 Joachim Wester
 // MIT license
