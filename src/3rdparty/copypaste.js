@@ -4,22 +4,8 @@
  * In future we may implement a better driver when better APIs are available
  * @constructor
  */
-var CopyPaste = (function () {
-  var instance;
-  return {
-    getInstance: function () {
-      if (!instance) {
-        instance = new CopyPasteClass();
-      } else if (instance.hasBeenDestroyed()){
-        instance.init();
-      }
 
-      instance.refCounter++;
-
-      return instance;
-    }
-  };
-})();
+(function(global) {
 
 function CopyPasteClass() {
   this.refCounter = 0;
@@ -242,3 +228,22 @@ CopyPasteClass.prototype._unbindEvent = (function () {
     };
   }
 })();
+
+global.CopyPaste = (function () {
+  var instance;
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = new CopyPasteClass();
+      } else if (instance.hasBeenDestroyed()){
+        instance.init();
+      }
+
+      instance.refCounter++;
+
+      return instance;
+    }
+  };
+})();
+
+})(window);
